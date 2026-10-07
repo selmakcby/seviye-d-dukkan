@@ -1,0 +1,9 @@
+## Notlar: bizim ölçümümüz (7 Ekim 2026, dürüst okuma)
+
+- **Kazanç maliyette ve hızda.** Hat iki koşuda da 30/30, 12/12, tuzak 1/1 buldu; naif Opus ajanı ortalama 10,3 kat pahalı (0,328 vs 0,032 USD) ve ~3 kat yavaş (88 vs 30 sn).
+- **Opus da yanlış yapmıyor sayılır.** Naif 2. koşu 014 numaralı mesajı ("takip numarası çalışmıyor, kargom nerede") insana verdi; cevap anahtarında kalıp sipariş sorusu. Savunulabilir bir karar, ama aynı ajan aynı veride iki koşuda farklı karar verdi (1. koşu 8 tur, 2. koşu 37 tur ve 0,39 USD). Naif yolun maliyeti de kararı da koşudan koşuya oynuyor.
+- **Sadece betik 0 token'la çok yol alıyor.** Stok ve ödeme 12/12, tuzak ve iade kural kalıbıyla 1/1. Kaçırdığı tek şey 3 zor soru: anahtar kelimeye bakıp "kalıp" sandı ve düğün çiftine tabağın etiket fiyatını yazdı. Haiku bekçinin bütün işi bu 3 mesaj ve onu ~1 sente yapıyor.
+- **Model hesap yapmıyor.** Eşik formülü ve gecikme günleri betikte; Sonnet sadece metni yazıyor. Yazıcı taslaklarında sayılar tablodakiyle aynı çıktı (elle kontrol edildi).
+- **Önbellek etkisi.** Hat koşuları gün içinde önbellekten okudu. Aynı gün önbellek ısınmadan yapılan ilk tam koşular 0,045 USD tuttu; o durumda bile naif yol ~7 kat pahalı.
+- **Hermes bu tabloda yok.** `./hermes/calistir.sh` ayrı ölçülür (`cikti/hermes-masa.md`): Hermes (Haiku) mesaj başına 0,002-0,05 USD tahmini (önbellek ısınınca alt uçta; ilk denemede kalıp soruda 11 API çağrısıyla 0,09 USD gördük, rol metni sıkılaşınca 1-2 çağrıya indi); zor soruda Claude Code devri (Sonnet) ~0,003 USD.
+- **Ortam:** Claude Code 2.1.287, Ekim 2026 liste fiyatları. Naif koşu `--setting-sources project` ile koştu, kişisel CLAUDE.md yüklü kaldı (gerçek kullanımdaki gibi); hattın çağrıları kişisel CLAUDE.md'yi dışarıda bırakır. Senin sayıların farklı çıkabilir, `./olc/olc.sh` ile kendin ölç.

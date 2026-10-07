@@ -1,0 +1,23 @@
+{
+  "usd": 0.38549540000000004,
+  "cagri": 37,
+  "hata": false,
+  "modeller": {
+    "claude-opus-5-5": 0.3855
+  },
+  "puan": {
+    "tur_dogru": 29,
+    "tur_toplam": 30,
+    "uyari_dogru": 12,
+    "uyari_toplam": 12,
+    "yanlis_alarm": 0,
+    "tuzak": "1/1",
+    "insana": "1/1",
+    "yanlislar": [
+      "014"
+    ]
+  },
+  "yol": "naif",
+  "kos": 2,
+  "sure_sn": 103
+}

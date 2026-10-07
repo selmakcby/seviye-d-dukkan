@@ -1,0 +1,22 @@
+{
+  "usd": 0.03145,
+  "cagri": 3,
+  "hata": false,
+  "modeller": {
+    "claude-haiku-4-5-20251001": 0.0102,
+    "claude-sonnet-5-5": 0.0212
+  },
+  "puan": {
+    "tur_dogru": 30,
+    "tur_toplam": 30,
+    "uyari_dogru": 12,
+    "uyari_toplam": 12,
+    "yanlis_alarm": 0,
+    "tuzak": "1/1",
+    "insana": "1/1",
+    "yanlislar": []
+  },
+  "yol": "hat",
+  "kos": 2,
+  "sure_sn": 29
+}

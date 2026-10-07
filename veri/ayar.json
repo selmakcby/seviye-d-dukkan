@@ -1,0 +1,7 @@
+{
+  "bugun": "2026-10-08",
+  "_bugun_notu": "Örnek veri bu tarihe göre yazıldı. Kendi verinde bu alanı boş bırak (\"\"): betik bugünün tarihini kullanır.",
+  "tampon_gun": 3,
+  "siparis_hedef_gun": 14,
+  "butce_tavani_usd": 0.5
+}

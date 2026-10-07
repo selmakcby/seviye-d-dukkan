@@ -1,0 +1,13 @@
+id,musteri,tutar_tl,fatura_tarihi,vade,durum,iletisim
+O-01,Kahve Durağı Kafe,4800,2026-08-21,2026-09-20,bekliyor,Selin Hanım (muhasebe)
+O-02,Bahçe Otel,12500,2026-09-15,2026-10-15,bekliyor,Okan Bey (satın alma)
+O-03,Lale Çiçekçilik,2150,2026-08-31,2026-09-30,odendi,Lale Hanım
+O-04,Ada Restoran,7900,2026-09-01,2026-10-01,bekliyor,Murat Bey (işletme)
+O-05,Mor Kitabevi Kafe,1600,2026-09-08,2026-10-08,bekliyor,Ece Hanım
+O-06,Ege Butik Otel,9300,2026-08-01,2026-08-31,bekliyor,Burcu Hanım (muhasebe)
+O-07,Kuşbaşı Lokanta,3450,2026-08-26,2026-09-25,odendi,Hakan Bey
+O-08,Pera Konsept Mağaza,6200,2026-09-05,2026-10-05,bekliyor,Derya Hanım (satın alma)
+O-09,Rıhtım Kahvecisi,2800,2026-09-20,2026-10-20,bekliyor,Can Bey
+O-10,Fidan Kreş,1250,2026-08-16,2026-09-15,odendi,Gül Hanım
+O-11,Yıldız Pastanesi,3900,2026-09-07,2026-10-07,bekliyor,Yıldız Hanım
+O-12,Kordon Balık Evi,5600,2026-09-30,2026-10-30,bekliyor,Tolga Bey

@@ -1,0 +1,23 @@
+{
+  "usd": 0.0,
+  "cagri": 0,
+  "hata": false,
+  "modeller": {},
+  "puan": {
+    "tur_dogru": 27,
+    "tur_toplam": 30,
+    "uyari_dogru": 12,
+    "uyari_toplam": 12,
+    "yanlis_alarm": 0,
+    "tuzak": "1/1",
+    "insana": "1/1",
+    "yanlislar": [
+      "006",
+      "018",
+      "028"
+    ]
+  },
+  "yol": "betik",
+  "kos": 1,
+  "sure_sn": 0
+}

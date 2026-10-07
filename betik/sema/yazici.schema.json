@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": ["hatirlatmalar", "siparisler"],
+  "properties": {
+    "hatirlatmalar": {"type": "array", "items": {
+      "type": "object", "required": ["id", "metin"],
+      "properties": {"id": {"type": "string"}, "metin": {"type": "string", "minLength": 20, "maxLength": 900}}}},
+    "siparisler": {"type": "array", "items": {
+      "type": "object", "required": ["tedarikci", "metin"],
+      "properties": {"tedarikci": {"type": "string"}, "metin": {"type": "string", "minLength": 20, "maxLength": 1200}}}}
+  }
+}
