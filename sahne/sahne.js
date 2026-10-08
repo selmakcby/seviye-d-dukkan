@@ -61,7 +61,7 @@ function turetilmis(ist, olay, sayac) {
     ek.gelen = { durum: 'bitti', satirlar: [sayac.mesaj + ' mesaj · 20 ürün · 12 fatura'], usd: 0 };
   }
   if (olay.rol === 'yonetici' && olay.durum === 'bitti') {
-    ek.rapor = { durum: 'bitti', satirlar: ['cikti/sabah-raporu.md', 'insana ' + (sayac.tuzak + sayac.insana) + ' · en üstte'], usd: 0 };
+    ek.rapor = { durum: 'bitti', satirlar: ['cikti/sabah-raporu.md', 'insana ' + (sayac.tuzak + sayac.insana) + ' (tuzak dahil) · en üstte'], usd: 0 };
   }
   return { ...ist, ...ek };
 }
