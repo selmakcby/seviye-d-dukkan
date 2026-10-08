@@ -123,11 +123,6 @@ function istasyonCiz(i, d) {
   const kural = !!s.kural && (i.roller || []).some((r) => MODELLI.includes(r));
   el.className = 'ist ' + s.durum + ' c-' + (kural ? 'dim' : i.renk) + (i.yan ? ' yan' : '') + (kural ? ' kural' : '');
   el.querySelector('.rol').textContent = kural ? i.ad.split(' · ')[0] + ' · KURAL' : i.ad;
-  if (i.id === 'hermes') {
-    const gizli = s.durum === 'bekliyor';
-    el.style.display = gizli ? 'none' : '';
-    ['devir', 'devir-yazi'].forEach((k) => { const e = $(k); if (e) e.style.display = gizli ? 'none' : ''; });
-  }
   const satirlar = s.satirlar.length ? s.satirlar : [i.bos || 'bekliyor…'];
   const bos = !s.satirlar.length;
   const html = satirlar.map((t) => '<p' + (bos ? ' class="bos"' : '') + '>' + kacis(t) + '</p>').join('');
