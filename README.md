@@ -147,6 +147,18 @@ Skill Agent Skills standardında (`name` + `description`), yani Hermes, Codex ve
 
 [Hermes Agent](https://github.com/NousResearch/hermes-agent) 7/24 açık kalabilen bir ajan. Burada **ucuz modelle** müşteri masasında bekliyor; zor soru gelince Hermes'le birlikte gelen resmi **`claude-code` skill'i** ile işi Claude Code'a (`claude -p`) devrediyor.
 
+**Hermes'i kurmak (bir kez, ~5 dk).** Resmi kurulum ([hermes-agent README](https://github.com/NousResearch/hermes-agent), 8 Eki 2026):
+
+```bash
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash   # macOS / Linux / WSL2
+source ~/.zshrc                                                        # ya da ~/.bashrc
+hermes setup                      # kurulum sihirbazı: sağlayıcı seç -> anthropic, anahtarını gir
+hermes model                      # sadece modeli değiştirmek için (bu repo koşuda Haiku verir)
+hermes --version                  # çalışıyor mu
+```
+
+Anthropic anahtarı Hermes'in kendi ayarına yazılır (`~/.hermes/`), bu repoya girmez. Bu repo Hermes'in ayarına dokunmaz; model ve araç listesi her koşuda komut satırından verilir. Hermes'i hiç kurmazsan ana hat (`./calistir.sh`) ve sahne Hermes'siz tam çalışır.
+
 ```bash
 ./hermes/calistir.sh              # 002 (kalıp) · 018 (zor -> Claude Code) · 012 (tuzak)
 ./hermes/calistir.sh 004 028      # istediğin mesajlar
