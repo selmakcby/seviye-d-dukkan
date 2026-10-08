@@ -34,6 +34,7 @@ REPO: $(pwd)
 <mesaj id=\"$ID\">
 $(sed '1,/^---$/d' "$DOSYA")
 </mesaj>"
+  python3 betik/olay.py hermes basladi "$ID geldi · Haiku okuyor"
   BAS=$(date +%s)
   CEVAP=$(hermes -z "$ISTEM" -m "$MODEL" --provider "$SAGLAYICI" -t terminal,skills -s claude-code \
             --usage-file "cikti/hermes/kullanim-$ID.json" 2>&1) || CEVAP="HATA: hermes çıkış kodu sıfır değil
@@ -41,9 +42,18 @@ $CEVAP"
   SURE=$(( $(date +%s) - BAS ))
   CEVAP=$(printf '%s\n' "$CEVAP" | grep -v '^```' | sed '/^[[:space:]]*$/d')
   echo "$CEVAP"
+  KARAR=$(printf '%s\n' "$CEVAP" | sed -n 's/^KARAR:[[:space:]]*//p' | tail -1)
+  case "$KARAR" in
+    kalip*)       OZET="$ID kalıp cevap" ;;
+    claude-code*) OZET="$ID zor → claude -p (sonnet)" ;;
+    insana*)      if printf '%s' "$CEVAP" | grep -qiE 'tuzak|talimat|enjeksiyon'; then OZET="$ID tuzak → insana"; else OZET="$ID → insana"; fi ;;
+    *)            OZET="$ID karar okunamadı" ;;
+  esac
+  python3 betik/olay.py hermes not "$OZET" --kullanim "cikti/hermes/kullanim-$ID.json"
   { echo "## $ID · $(sed -n 's/^kimden: //p' "$DOSYA") · $(sed -n 's/^kanal: //p' "$DOSYA") · ${SURE} sn"
     echo; echo "> $(sed '1,/^---$/d' "$DOSYA" | tr '\n' ' ' | cut -c1-220)"; echo
     echo '```'; echo "$CEVAP"; echo '```'; echo; } >> "$CIKTI"
 done
 python3 hermes/maliyet.py >> "$CIKTI"
+python3 betik/olay.py hermes bitti "${#IDLER[@]} mesaj · tablo cikti/hermes-masa.md"
 echo; tail -8 "$CIKTI"; echo "Hazır: $CIKTI"

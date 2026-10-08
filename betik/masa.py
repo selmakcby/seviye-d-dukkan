@@ -9,6 +9,7 @@ import re
 import sys
 
 from dogrula import hatalar, sema_yukle
+from olay import olay
 from ortak import (csv_oku, json_ayikla, json_oku, json_yaz, kucuk, maliyet_yaz, mesajlar_oku,
                    metin_oku, metin_yaz, veri_blogu, yalin_cagri)
 
@@ -132,6 +133,9 @@ def main():
     sablonlar, bilgi = sss_oku()
     tablolar = {"stok": csv_oku("veri/stok.csv"), "siparisler": csv_oku("veri/siparisler.csv")}
     sonuc, zorlar = cevaplari_kur(mesajlar_oku(), siniflar, sablonlar, tablolar)
+    olay("masa", "basladi", f"{len(zorlar)} zor soru · kalıplar şablondan")
+    for m in zorlar:
+        olay("masa", "not", f"{m['id']} zor soru → " + ("şablon yok, insana" if sadece_betik else "Sonnet taslak"))
     taslaklar, cagrilar = ({}, []) if sadece_betik else zor_taslaklar(zorlar, bilgi)
     for m in zorlar:
         if m["id"] in taslaklar:
@@ -144,6 +148,7 @@ def main():
     maliyet_yaz("masa", cagrilar)
     hazir = sum(1 for k in sonuc.values() if k["cevap"])
     usd = sum(c["usd"] for c in cagrilar)
+    olay("masa", "bitti", f"{hazir - len(taslaklar)} şablon + {len(taslaklar)} Sonnet taslak", maliyet=usd)
     print(f"    {hazir} cevap taslağı hazır ({len(taslaklar)} Sonnet, {hazir - len(taslaklar)} şablon)"
           f" · {usd:.4f} USD · gönderilen: 0")
 

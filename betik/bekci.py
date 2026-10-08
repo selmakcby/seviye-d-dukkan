@@ -10,6 +10,7 @@ import re
 import sys
 
 from dogrula import hatalar, sema_yukle
+from olay import olay
 from ortak import json_ayikla, json_yaz, kucuk, maliyet_yaz, mesajlar_oku, metin_oku, veri_blogu, yalin_cagri
 
 MODEL = "haiku"
@@ -74,6 +75,16 @@ def birlestir(mesajlar, model_siniflari, kural_modu):
     return sonuc
 
 
+def olay_yaz(siniflar, sayac, usd):
+    """Sahne için: tuzak ve insana mesajları tek tek, sonra toplam."""
+    for i, s in siniflar.items():
+        if s["tur"] in ("tuzak", "insana"):
+            olay("bekci", "not", f"{i} → {s['tur']}")
+    say = {t: sayac.get(t, 0) for t in ("kalip", "zor", "tuzak", "insana")}
+    olay("bekci", "bitti", f"{say['kalip']} kalıp · {say['zor']} zor · {say['tuzak']} tuzak · {say['insana']} insana",
+         maliyet=usd, sayac=say)
+
+
 def main():
     kural_modu = "--kural" in sys.argv
     mesajlar = mesajlar_oku()
@@ -81,7 +92,9 @@ def main():
         print("    Yeni mesaj yok: bekçi çağrılmadı (ön kontrol, 0 token).")
         json_yaz("cikti/siniflar.json", {})
         maliyet_yaz("bekci", [])
+        olay("bekci", "bitti", "mesaj yok · 0 token")
         return
+    olay("bekci", "basladi", f"{len(mesajlar)} mesaj sınıflanıyor" + (" · sadece kurallar" if kural_modu else " · Haiku"))
     model_siniflari, cagrilar = ({}, []) if kural_modu else model_ile_sinifla(mesajlar)
     siniflar = birlestir(mesajlar, model_siniflari, kural_modu)
     json_yaz("cikti/siniflar.json", siniflar)
@@ -90,6 +103,7 @@ def main():
     for s in siniflar.values():
         sayac[s["tur"]] = sayac.get(s["tur"], 0) + 1
     usd = sum(c["usd"] for c in cagrilar)
+    olay_yaz(siniflar, sayac, usd)
     print(f"    {len(mesajlar)} mesaj: " + ", ".join(f"{k} {v}" for k, v in sorted(sayac.items()))
           + f" · {usd:.4f} USD")
 

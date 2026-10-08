@@ -8,6 +8,7 @@ import json
 import os
 from datetime import datetime
 
+from olay import olay
 from ortak import ayar, bugun, json_oku, json_yaz, metin_yaz, para, yol
 from puanla import hat_puani, satir as puan_satiri
 
@@ -129,6 +130,7 @@ def ozet_satiri(cevaplar, stok, gec):
 
 
 def main():
+    olay("yonetici", "basladi", "rapor toplanıyor")
     cevaplar = json_oku("cikti/cevaplar.json")
     stok = json_oku("cikti/stok-uyari.json")["urunler"]
     gec = json_oku("cikti/geciken.json")["odemeler"]
@@ -145,6 +147,7 @@ def main():
     metin_yaz("cikti/sabah-raporu.md", "\n".join(s))
     json_yaz("cikti/maliyet.json", {"toplam_usd": round(toplam, 5), "cagri": cagri,
                                     "roller": satirlar})
+    olay("yonetici", "bitti", f"sabah-raporu.md yazıldı · {virgul(toplam, 2)} USD")
     print(f"Hazır: cikti/sabah-raporu.md · toplam {toplam:.4f} USD · {cagri} model çağrısı · gönderilen: 0")
 
 

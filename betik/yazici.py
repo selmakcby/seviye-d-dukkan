@@ -9,6 +9,7 @@ import re
 import sys
 
 from dogrula import hatalar, sema_yukle
+from olay import olay
 from ortak import json_ayikla, json_oku, json_yaz, maliyet_yaz, metin_oku, metin_yaz, para, yalin_cagri
 
 MODEL = "sonnet"
@@ -69,6 +70,7 @@ def main():
     gecikenler = json_oku("cikti/geciken.json")["odemeler"]
     stok = json_oku("cikti/stok-uyari.json")["urunler"]
     cagrilar = []
+    olay("yazici", "basladi", f"{len(gecikenler)} geciken ödeme · {len(stok)} stok uyarısı")
     if not gecikenler and not stok:
         taslak, yazan = {"hatirlatmalar": [], "siparisler": []}, "Yapacak iş yok, model çağrılmadı"
     elif sadece_betik:
@@ -80,6 +82,8 @@ def main():
     md_yaz(taslak, gecikenler, yazan)
     maliyet_yaz("yazici", cagrilar)
     usd = sum(c["usd"] for c in cagrilar)
+    olay("yazici", "bitti", f"{len(taslak['hatirlatmalar'])} hatırlatma + {len(taslak['siparisler'])} sipariş taslağı",
+         maliyet=usd)
     print(f"    {len(taslak['hatirlatmalar'])} hatırlatma, {len(taslak['siparisler'])} sipariş taslağı"
           f" · {usd:.4f} USD · gönderilen: 0")
 

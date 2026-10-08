@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dükkan Sahnesi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --zemin:#f5efe3; --kagit:#fffdf8; --murekkep:#2b2a27; --nokta:rgba(120,104,72,.16);
+  --k-amber:#c8611a; --k-green:#2f6b3a; --k-cyan:#1d6378; --k-red:#b8322a;
+  --k-violet:#6a4597; --k-dim:#8b867b; --k-ink:#2b2a27;
+  --f-baslik:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --f-govde:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background-color:var(--zemin);color:var(--murekkep);font-family:var(--f-govde);-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(circle at center,var(--nokta) 0 1.3px,transparent 1.8px);background-size:28px 28px}
+#sahne{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center}
+
+/* başlık + sayaç */
+.ust{position:absolute;left:64px;top:40px;right:64px;display:flex;justify-content:space-between;align-items:flex-start}
+.kicker{font-family:var(--f-baslik);font-weight:700;font-size:18px;letter-spacing:2px;color:var(--k-dim)}
+h1{font-family:var(--f-baslik);font-weight:700;font-size:46px;letter-spacing:-.5px;margin-top:6px}
+.mod{font-family:var(--f-baslik);font-weight:700;font-size:20px;padding:8px 18px;border-radius:999px;
+  border:2.5px solid var(--murekkep);background:var(--kagit)}
+.mod::before{content:'';display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:10px;
+  background:var(--k-green);vertical-align:1px}
+.mod.tekrar::before{background:var(--k-amber)}
+.sayac{position:absolute;left:64px;top:150px;display:flex;gap:14px;font-family:var(--f-baslik);font-size:24px;font-weight:700}
+.sayac span{background:var(--kagit);border:2.5px solid var(--cc,var(--murekkep));color:var(--cc,var(--murekkep));
+  padding:8px 18px;border-radius:12px;transition:transform .25s}
+.sayac span.oynadi{transform:scale(1.12)}
+.sayac b{font-weight:700}
+
+/* istasyon */
+.ist{position:absolute;width:240px;display:flex;flex-direction:column;align-items:center;transition:opacity .4s}
+.ist.bekliyor{opacity:.42}
+.balon{position:relative;width:100%;height:150px;background:var(--kagit);border:2.5px solid var(--murekkep);
+  border-radius:22px;padding:12px 16px;margin-bottom:26px;box-shadow:0 8px 20px rgba(80,64,36,.10);
+  display:flex;flex-direction:column;justify-content:center;gap:4px;overflow:hidden;transition:border-color .3s}
+.balon p{font-size:20px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.balon p+p{font-size:18px;color:#5d584f}
+.balon p.bos{color:var(--k-dim);text-align:center;font-family:var(--f-baslik)}
+.balon::before,.balon::after{content:'';position:absolute;left:50%;transform:translateX(-50%);border-style:solid;border-color:transparent}
+.balon::before{bottom:-24px;border-width:24px 16px 0;border-top-color:var(--murekkep)}
+.balon::after{bottom:-19px;border-width:20px 13px 0;border-top-color:var(--kagit)}
+.ist .balon{overflow:visible}
+.calisiyor .balon{border-color:var(--cc);box-shadow:0 0 0 5px color-mix(in srgb,var(--cc) 22%,transparent),0 8px 20px rgba(80,64,36,.12)}
+.calisiyor .balon::before{border-top-color:var(--cc)}
+.kare{position:relative;height:150px;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.kare img,.kare svg{max-height:150px;max-width:230px;image-rendering:pixelated;filter:drop-shadow(0 10px 8px rgba(80,64,36,.18))}
+.calisiyor .kare img,.calisiyor .kare svg{animation:zipla .55s ease-in-out infinite alternate}
+@keyframes zipla{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-14px) rotate(2deg)}}
+.tik{position:absolute;right:18px;top:0;width:44px;height:44px;border-radius:50%;background:var(--k-green);color:#fff;
+  font:700 28px/44px var(--f-baslik);text-align:center;transform:scale(0);transition:transform .3s}
+.bitti .tik{transform:scale(1)}
+.rol{margin-top:14px;font-family:var(--f-baslik);font-weight:700;font-size:21px;letter-spacing:.5px;color:var(--zemin);
+  background:var(--cc);padding:7px 16px 8px;border-radius:999px;white-space:nowrap}
+.usd{margin-top:8px;font-family:var(--f-baslik);font-size:18px;color:var(--k-dim);height:22px}
+.ok{position:absolute;font-family:var(--f-baslik);font-weight:700;font-size:48px;color:#6f6a60}
+
+/* hermes: yan balon */
+.ist.yan{flex-direction:row;align-items:center;width:auto}
+.yan .sol{display:flex;flex-direction:column;align-items:center;width:240px}
+.yan .balon{width:390px;height:150px;margin:0 0 40px 26px}
+.yan .balon::before{left:-24px;top:50%;bottom:auto;transform:translateY(-50%);border-width:16px 24px 16px 0;
+  border-color:transparent var(--murekkep) transparent transparent}
+.yan .balon::after{left:-19px;top:50%;bottom:auto;transform:translateY(-50%);border-width:13px 20px 13px 0;
+  border-color:transparent var(--kagit) transparent transparent}
+.yan.calisiyor .balon::before{border-color:transparent var(--cc) transparent transparent}
+.yan .balon p{-webkit-line-clamp:1;font-size:19px}
+
+/* yollar, zarf, kayıt */
+svg.yollar{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none}
+.ray{stroke:#c9bfa9;stroke-width:4;stroke-dasharray:2 14;stroke-linecap:round;fill:none}
+.devir{stroke:#b3a993;stroke-width:4;stroke-dasharray:12 10;fill:none;transition:stroke .3s}
+.devir.acik{stroke:var(--k-violet);animation:akis .8s linear infinite}
+@keyframes akis{to{stroke-dashoffset:-44}}
+.devir-yazi{font-family:var(--f-baslik);font-weight:700;font-size:22px;fill:#8b867b}
+.devir-yazi.acik{fill:var(--k-violet)}
+#zarf{position:absolute;left:0;top:0;width:52px;height:38px;transition:transform .7s cubic-bezier(.5,0,.3,1);z-index:3}
+.kayit{position:absolute;left:1130px;top:740px;width:726px;background:var(--kagit);border:2.5px solid var(--murekkep);
+  border-radius:16px;padding:16px 22px;box-shadow:0 8px 20px rgba(80,64,36,.10)}
+.kayit h2{font-family:var(--f-baslik);font-size:17px;letter-spacing:2px;color:var(--k-dim);margin-bottom:8px}
+.kayit li{list-style:none;font-family:var(--f-baslik);font-size:19px;line-height:1.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kayit li i{font-style:normal;color:var(--k-dim);margin-right:12px}
+.kayit li b{color:var(--cc);margin-right:12px}
+#tekrar{position:absolute;right:64px;bottom:34px;font-family:var(--f-baslik);font-weight:700;font-size:20px;
+  padding:10px 22px;border-radius:999px;border:2.5px solid var(--murekkep);background:var(--kagit);color:var(--murekkep);cursor:pointer}
+#tekrar:hover{background:var(--murekkep);color:var(--zemin)}
+.c-amber{--cc:var(--k-amber)} .c-green{--cc:var(--k-green)} .c-cyan{--cc:var(--k-cyan)}
+.c-red{--cc:var(--k-red)} .c-violet{--cc:var(--k-violet)} .c-dim{--cc:var(--k-dim)} .c-ink{--cc:var(--k-ink)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="sahne">
+  <div class="ust">
+    <div><div class="kicker">SEVİYE D · DÜKKANIN AJAN EKİBİ</div><h1>Sırça Seramik · sabah koşusu</h1></div>
+    <div class="mod" id="mod">canlı</div>
+  </div>
+  <div class="sayac" id="sayac"></div>
+  <svg class="yollar" id="yollar" aria-hidden="true"></svg>
+  <div id="istasyonlar"></div>
+  <svg id="zarf" viewBox="0 0 52 38" aria-hidden="true">
+    <rect x="2" y="2" width="48" height="34" rx="4" fill="#fffdf8" stroke="#2b2a27" stroke-width="3"/>
+    <path d="M4 5 L26 22 L48 5" fill="none" stroke="#2b2a27" stroke-width="3"/>
+    <circle cx="44" cy="8" r="7" fill="#c8611a"/>
+  </svg>
+  <div class="kayit"><h2>SON OLAYLAR · cikti/olaylar.jsonl</h2><ul id="kayit"></ul></div>
+  <button id="tekrar" type="button">⟲ tekrar oynat</button>
+</div>
+<script src="/sahne.js"></script>
+</body>
+</html>

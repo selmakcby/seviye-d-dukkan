@@ -13,6 +13,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "betik"))
 from masa import sss_oku  # noqa: E402
+from olay import olay  # noqa: E402
 from ortak import KOK, mesaj_oku, metin_oku, veri_blogu, yalin_cagri, json_ayikla  # noqa: E402
 
 
@@ -25,12 +26,14 @@ def main():
     m = mesaj_oku(dosya)
     _, bilgi = sss_oku()
     sistem = metin_oku("betik/promptlar/masa.txt").replace("{bilgi}", bilgi)
+    olay("claude", "basladi", f"{m['id']} Hermes'ten devir · claude -p (sonnet)")
     c = yalin_cagri("sonnet", sistem, veri_blogu(m), butce_usd=0.2)
     taslak = (json_ayikla(c["metin"]) or {}).get("taslaklar", {}).get(m["id"], "").strip()
     os.makedirs(os.path.join(KOK, "cikti", "hermes"), exist_ok=True)
     with open(os.path.join(KOK, "cikti", "hermes", "claude-devir.jsonl"), "a", encoding="utf-8") as f:
         f.write(json.dumps({"id": m["id"], "model": c["model"], "usd": round(c["usd"], 5),
                             "sure_sn": round(c["sure"], 1)}) + "\n")
+    olay("claude", "bitti", f"{m['id']} taslak " + ("hazır" if taslak else "alınamadı"), maliyet=c["usd"])
     if not taslak:
         raise SystemExit("Claude Code taslak döndürmedi. Bu mesajı insana işaretle.")
     print(f"[claude -p · {c['model']} · {c['usd']:.4f} USD]")

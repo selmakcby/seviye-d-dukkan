@@ -16,6 +16,7 @@ fi
 mkdir -p cikti
 rm -f cikti/maliyet*.json cikti/siniflar.json cikti/cevaplar.* cikti/taslaklar.* \
       cikti/stok-uyari.json cikti/geciken.json cikti/sabah-raporu.md
+: > cikti/olaylar.jsonl   # sahne: her koşu temiz başlar (Hermes aynı dosyaya ekler)
 cd betik
 echo "[1] Stok ve ödeme betiği (0 token)"
 python3 stok_odeme.py

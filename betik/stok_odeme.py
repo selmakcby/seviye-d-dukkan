@@ -8,7 +8,8 @@ Kural tablodan gelir, model gerekmez:
 import math
 from datetime import date
 
-from ortak import ayar, bugun, csv_oku, json_yaz, maliyet_yaz, para
+from olay import olay
+from ortak import ayar, bugun, csv_oku, json_yaz, maliyet_yaz, mesajlar_oku, para
 
 
 def stok_uyarilari(urunler, tampon_gun, hedef_gun):
@@ -41,6 +42,7 @@ def gecikenler(odemeler, gun):
 
 
 def main():
+    olay("betik", "basladi", "tablolar ve gelen kutusu okunuyor")
     a = ayar()
     gun = bugun()
     stok = stok_uyarilari(csv_oku("veri/stok.csv"), a.get("tampon_gun", 3), a.get("siparis_hedef_gun", 14))
@@ -50,6 +52,9 @@ def main():
     maliyet_yaz("stok-odeme", [])
     toplam = sum(o["tutar_tl"] for o in gec)
     print(f"    {len(stok)} ürün eşik altında, {len(gec)} ödeme gecikmiş ({para(toplam)} TL). 0 token.")
+    mesaj = len(mesajlar_oku())
+    olay("betik", "bitti", f"{mesaj} mesaj okundu · {len(stok)} stok uyarısı · {len(gec)} geciken ödeme",
+         maliyet=0, sayac={"mesaj": mesaj})
 
 
 if __name__ == "__main__":
